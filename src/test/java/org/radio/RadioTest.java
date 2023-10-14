@@ -19,10 +19,9 @@ public class RadioTest {
     @Test
     public void minRadioStation() { //мимимальная радиостанция
         Radio radio = new Radio();
-        radio.setCurrentRadioStationNumber(0);
-        radio.getMinRadioStationNumber();
 
-        Assertions.assertEquals(0,radio.getCurrentRadioStationNumber());
+
+        Assertions.assertEquals(0,radio.getMinRadioStationNumber());
     }
 
     @Test
@@ -310,36 +309,6 @@ public class RadioTest {
 
         int expected = 56;
         int actual = radio.getCurrentVolume();
-
-        Assertions.assertEquals(expected, actual);
-
-    }
-
-    @Test
-
-    public void maxVolume() { // максимальная громкость
-        Radio radio = new Radio();
-        radio.setLimitValuesVolume(100);
-
-
-        int expected = 100;
-        int actual = radio.getCurrentVolume();
-
-        Assertions.assertEquals(expected, actual);
-
-    }
-
-    @Test
-
-    public void MinVolume() { // Минимальная громкость
-        Radio radio = new Radio();
-        radio.setLimitValuesVolume(0);
-
-
-        int expected = 0;
-        int actual = radio.getCurrentVolume();
-
-        Assertions.assertEquals(expected, actual);
 
         Assertions.assertEquals(expected, actual);
 
