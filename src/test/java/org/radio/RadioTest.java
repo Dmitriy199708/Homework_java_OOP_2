@@ -27,11 +27,17 @@ public class RadioTest {
 
     @Test
     public void maxVolumeRadiostation() { // максимальная громкость
-        Radio radio = new Radio();
-        radio.setLimitValuesVolume(0);
-        radio.getMaxVolume();
+        Radio radio = new Radio(0,100);
 
-        Assertions.assertEquals(0,radio.getCurrentVolume());
+
+        Assertions.assertEquals(100,radio.getMaxVolume());
+    }
+    @Test
+    public void minVolumeRadiostation() { // максимальная громкость
+        Radio radio = new Radio(0,55);
+
+
+        Assertions.assertEquals(0,radio.getMinVolume());
     }
     @Test
     public void nextRadio() {
