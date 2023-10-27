@@ -1,34 +1,48 @@
 package org.radio;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Radio {
-    private int currentRadioStationNumber; //текущий номер радиостанции
-    private int currentVolume; // текущая громкость
 
-    public int getCurrentRadioStationNumber() {
-        return currentRadioStationNumber;
+
+    private int numberOfRadioStations = 10; //количество радиостанций
+    private int maxRadioStationNumber = numberOfRadioStations - 1;
+    private int minRadioStationNumber = 0; // минимальная радиостанция
+    private int currentRadioStationNumber = minRadioStationNumber; //текущий номер радиостанции
+    private int minVolume = 0; // минимальная громкость
+    private int maxVolume = 100; // максимальная громкость
+    private int currentVolume = minVolume;// текущая громкость
+
+    public Radio(int numberOfRadioStations, int maxRadioStationNumber, int minRadioStationNumber, int minVolume, int maxVolume) {
+        this.numberOfRadioStations = numberOfRadioStations;
+        this.maxRadioStationNumber = maxRadioStationNumber;
+        this.minRadioStationNumber = minRadioStationNumber;
+        this.minVolume = minVolume;
+        this.maxVolume = maxVolume;
     }
 
-    public int getCurrentVolume() { //для изменения текущего номера радиостанции
-        return currentVolume;
-    }
 
-    public void setCurrentRadioStationNumber(int newCurrentRadioStationNumber) { //проверка границ радиостанции
-        if (newCurrentRadioStationNumber < 0) {
+    public void setCurrentRadioStationNumber(int newCurrentRadioStationNumber) {
+        if (newCurrentRadioStationNumber > maxRadioStationNumber) {
             return;
         }
-        if (newCurrentRadioStationNumber > 9) {
+        if (newCurrentRadioStationNumber < minRadioStationNumber) {
             return;
         }
         currentRadioStationNumber = newCurrentRadioStationNumber;
     }
 
-
     public void setLimitValuesVolume(int newCurrentVolume) { //проверка границ громкости радиоприемника
-        if (newCurrentVolume < 0) {
+        if (newCurrentVolume < minVolume) {
             return;
         }
-        if (newCurrentVolume > 100) {
+        if (newCurrentVolume > maxVolume) {
             return;
         }
         currentVolume = newCurrentVolume;
@@ -36,8 +50,8 @@ public class Radio {
 
 
     public void setNextRadioStation() { //проверка кнопки переключения следующей радиостанции
-        if (currentRadioStationNumber >= 9) {
-            currentRadioStationNumber = 0;
+        if (currentRadioStationNumber >= maxRadioStationNumber) {
+            currentRadioStationNumber = minRadioStationNumber;
         } else {
             int target = currentRadioStationNumber + 1;
             setCurrentRadioStationNumber(target);
@@ -45,8 +59,8 @@ public class Radio {
     }
 
     public void setPrevRadioStation() {   //проверка кнопки переключения на предыдущию радиостанцию
-        if (currentRadioStationNumber <= 0) {
-            currentRadioStationNumber = 9;
+        if (currentRadioStationNumber <= minRadioStationNumber) {
+            currentRadioStationNumber = maxRadioStationNumber;
         } else {
             int target = currentRadioStationNumber - 1;
             setCurrentRadioStationNumber(target);
@@ -55,8 +69,8 @@ public class Radio {
     }
 
     public void setUppVolume() {
-        if (currentVolume >= 100) {
-            currentVolume = 100;
+        if (currentVolume >= maxVolume) {
+            currentVolume = maxVolume;
         } else {
             int volume = currentVolume + 1;
             setLimitValuesVolume(volume);
@@ -64,8 +78,8 @@ public class Radio {
     }
 
     public void setDownVolume() {
-        if (currentVolume <= 0) {
-            currentVolume = 0;
+        if (currentVolume <= minVolume) {
+            currentVolume = minVolume;
         } else {
             int volume = currentVolume - 1;
             setLimitValuesVolume(volume);
